@@ -16,3 +16,10 @@ def load_data(file="parkisons_test"):
     """
     data = np.genfromtxt("data/" + file)
     return data[:, :-1], data[:, -1]
+
+def compute_normalization(X, mean, std):
+    """
+    Arguments:
+        X: data
+    """
+    return (X - mean) / std

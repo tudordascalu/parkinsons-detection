@@ -38,9 +38,15 @@ if not has_arguments or "2" in arguments:
     Support vector machines
         kernel: radial basis
     """
+    # Normalize data | Essential step for SVMs as they are not scale invariant
+    mean, std = np.mean(X_train, axis=0), np.std(X_train, axis=0)
+    X_train = db.compute_normalization(X_train, mean, std)
+    X_test = db.compute_normalization(X_test, mean, std)
+    # Find optimal parameters
     log_scale = np.power(10.0, np.arange(-3, 4))
     parameters = {"kernel": ["rbf"], "C": log_scale, "gamma": log_scale}
     best_model = model.compute_svm_selection(X_train, y_train, parameters)
+    # Compute predictions
     clf = SVC(C=best_model["C"], gamma=best_model["gamma"], kernel="rbf")
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
