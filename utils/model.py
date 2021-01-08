@@ -5,6 +5,8 @@ Scope:
 """
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
 
 
 def compute_rf_selection(X, y, n_estimators_set=[], max_features_set=[], n_folds=5):
@@ -33,3 +35,17 @@ def compute_rf_selection(X, y, n_estimators_set=[], max_features_set=[], n_folds
     i_performances = np.argsort(performances)[:: -1]
     best_model = model_performances[i_performances[0]]
     return best_model, model_performances
+
+def compute_svm_selection(X, y, parameters):
+    """
+    Arguments:
+        X: data
+        y: labels
+        parameters: 
+    Returns:
+        best model where parameters are chosen using grid search
+    """
+    svc = SVC()
+    clf = GridSearchCV(svc, parameters)
+    clf.fit(X, y)
+    return clf.best_params_
