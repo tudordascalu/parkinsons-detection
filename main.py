@@ -24,15 +24,10 @@ if not has_arguments or "1" in arguments:
     n_estimators = [100, 250, 500, 750, 1000]
     max_features = [int(np.sqrt(n_features)), n_features]
     best_model, model_performances = model.compute_rf_selection(X_train, y_train, n_estimators_set=n_estimators, max_features_set=max_features)
-    print("--Model performances: {}".format(model_performances))
-    print("--Best model: {}".format(best_model))
     # Compute predictions
     clf = RandomForestClassifier(n_estimators=best_model["n_estimators"], max_features=best_model["max_features"], max_depth=None, bootstrap=True, oob_score=True)
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
-    print("Test accuracy: {}".format(accuracy))
-
-if "2" in arguments:
-    d = {"a": 1, "b": 2}
-    print(d.items())
+    print("--Best model: {}".format(best_model))
+    print("--Test accuracy: {}".format(accuracy))
