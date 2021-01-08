@@ -23,4 +23,4 @@ python main.py 2
 
 # Notes
 
-- unfortunately the train and test data set contain duplicates; this indicates that the error provided by both models is not an unbiased estimate of the expected loss
+- unfortunately the train and test data set contain duplicates; this indicates that the test error computed by both models is not an unbiased estimate of the expected error
